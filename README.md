@@ -6,21 +6,21 @@ Make percentage calculator using sql and compare between two column.
 <h5>Calculation Of Find Percentage</h5>
 
 suppose,
-  we make two variable and give some value.
+  we make two variable and give some value.</br>
     orgNumber=200;
     newNumber=120;
   
   now,
-    1st calculation is (200-120)/200X100=%;
-    2nd calculation is (120/200)X100=%;
+    1st calculation is (200-120)/200X100=%;</br>
+    2nd calculation is (120/200)X100=%;</br>
     
     fNumber=200, sNumber=120
   
-1st: CAST(round(((fNumber - sNumber)/fNumber * 100),2) AS DECIMAL(10,2)).
+1st: CAST(round(((fNumber - sNumber)/fNumber * 100),2) AS DECIMAL(10,2)).</br>
 2nd: CAST(round((sNumber/fNumber) * 100) AS DECIMAL(10,2)).
 
 there,
-CAST(data AS DECIMAL(10,2)),round(data,how_many_number_want_to_print).
+CAST(data AS DECIMAL(10,2)),round(data,how_many_number_want_to_print).</br>
 this all function we used for print float number like 12.2.
 
 /*-------------//--------------------------------------------//------------------------*/
