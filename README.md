@@ -49,3 +49,7 @@ this all function we used for print float number like 12.2.
     tb_data_master.pdate='18-JUL-18' 
     and tb_data_master.intime is not null 
     and tb_data_master.outtime is not null);
+    
+For duplicate data.
+    
+    distinct
