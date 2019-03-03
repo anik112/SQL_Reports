@@ -53,3 +53,37 @@ this all function we used for print float number like 12.2.
 For duplicate data.
     
     distinct
+    
+    
+    
+Simple Report sql:
+      
+      
+      select department,section_name,total_Emp,present_Emp,(total_Emp - present_Emp),
+      CAST(round(((total_Emp - (total_Emp - present_Emp))/total_Emp * 100),2) AS DECIMAL(10,2)) present_Emp_Percent 
+      from (
+      select count(distinct cardno) total_Emp,sectionnm section_name,departmentnm department
+      from tb_personal_info
+      where active=0
+      group by departmentnm,sectionnm
+      order by departmentnm asc
+      ),
+      (
+      select count(distinct cardno) present_Emp,sectionnm sec from tb_data_master where
+      tb_data_master.pdate='14-JAN-19'
+      group by sectionnm
+      order by sectionnm
+      ) where
+      section_name=sec(+);
+      
+      
+ Output:
+ 
++------------+--------------+-----------+-------------+------------+-------------+
+| Department | Section Name | Total Emp | Present Emp | Absent Emp | Present Emp |
++------------+--------------+-----------+-------------+------------+-------------+
+|            |              |           |             |            |             |
++------------+--------------+-----------+-------------+------------+-------------+
+
+
+
