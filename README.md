@@ -59,31 +59,33 @@ For duplicate data.
 Simple Report sql:
       
       
-      select department,section_name,total_Emp,present_Emp,(total_Emp - present_Emp),
-      CAST(round(((total_Emp - (total_Emp - present_Emp))/total_Emp * 100),2) AS DECIMAL(10,2)) present_Emp_Percent 
-      from (
-      select count(distinct cardno) total_Emp,sectionnm section_name,departmentnm department
-      from tb_personal_info
-      where active=0
-      group by departmentnm,sectionnm
-      order by departmentnm asc
-      ),
-      (
-      select count(distinct cardno) present_Emp,sectionnm sec from tb_data_master where
-      tb_data_master.pdate='14-JAN-19'
-      group by sectionnm
-      order by sectionnm
-      ) where
-      section_name=sec(+);
+    select department,section_name,line_no,total_Emp,present_Emp,
+        (total_Emp - present_Emp) absent_Emp,
+        CAST(round(((total_Emp - (total_Emp - present_Emp))/total_Emp * 100),2) AS DECIMAL(10,2)) present_Emp_Percent,
+        CAST(round((((total_Emp - present_Emp)/total_emp) * 100),2) AS DECIMAL(10,2)) absent_emp_percent
+    from 
+        ( select count(distinct cardno) total_Emp,sectionnm section_name,departmentnm department,lineno pr_line
+        from tb_personal_info
+        where active=0
+        group by departmentnm,sectionnm,lineno ),
+
+        ( select count(distinct cardno) present_Emp,sectionnm sec,lineno line_no
+          from tb_data_master where
+          tb_data_master.pdate='14-JAN-19'
+          group by sectionnm,lineno ) 
+    where
+      section_name=sec(+)
+      and pr_line=line_no
+      order by department,section_name asc;
       
       
  Output:
  
-    +------------+--------------+-----------+-------------+------------+-------------+
-    |-Department-|-Section Name-|-Total Emp-|-Present Emp-|-Absent Emp-|-Present Emp-|
-    +------------+--------------+-----------+-------------+------------+-------------+
-    |------------|--------------|-----------|-------------|------------|-------------|
-    +------------+--------------+-----------+-------------+------------+-------------+
+    +------------+--------------+-----------+-------------+------------+-------------+-------+--------------------+
+    |-Department-|-Section Name-|-Total Emp-|-Present Emp-|-Absent Emp-|-Present Emp Percent-|-Absent Emp Present-|
+    +------------+--------------+-----------+-------------+------------+-------------+-------+--------------------+
+    |------------|--------------|-----------|-------------|------------|-------------|-------|--------------------|
+    +------------+--------------+-----------+-------------+------------+-------------+-------+--------------------+
 
 
 
