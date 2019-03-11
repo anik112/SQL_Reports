@@ -1,0 +1,63 @@
+# IN OUT report using SQL
+
+
+            SELECT 
+            SECTIONNM,
+            -- WRITE IN TIME
+            COUNT(
+            CASE WHEN INTIME>'07:59:00 AM' AND INTIME<'09:00:00 AM' THEN INTIME
+               ELSE NULL END
+               ) TIME_08_TO_09IN,
+            COUNT(
+            CASE WHEN INTIME>'08:59:00 AM' AND INTIME<'10:00:00 AM' THEN INTIME
+               ELSE NULL END
+               ) TIME_09_TO_10IN,
+            COUNT(
+            CASE WHEN INTIME>'9:59:00 AM' AND INTIME<'11:00:00 AM' THEN INTIME
+               ELSE NULL END
+               ) TIME_10_TO_11IN,
+            COUNT(
+            CASE WHEN INTIME>'10:59:00 AM' AND INTIME<'12:00:00 AM' THEN INTIME
+               ELSE NULL END
+               ) TIME_11_TO_12IN,
+
+               -- WRITE OUT TIME
+               COUNT(
+            CASE WHEN OUTTIME>'14:59:00 PM' AND OUTTIME<'16:00:00 PM' THEN OUTTIME
+               ELSE NULL END
+               ) TIME_03_TO_04OUT,
+            COUNT(
+            CASE WHEN OUTTIME>'15:59:00 PM' AND OUTTIME<'17:00:00 PM' THEN OUTTIME
+               ELSE NULL END
+               ) TIME_04_TO_05OUT,
+            COUNT(
+            CASE WHEN OUTTIME>'16:59:00 PM' AND OUTTIME<'18:00:00 PM' THEN OUTTIME
+               ELSE NULL END
+               ) TIME_05_TO_06OUT,
+            COUNT(
+            CASE WHEN OUTTIME>'17:59:00 PM' AND OUTTIME<'19:00:00 PM' THEN OUTTIME
+               ELSE NULL END
+               ) TIME_06_TO_07OUT
+
+        FROM
+            TB_DATA_MASTER
+        WHERE
+            PDATE='12-FEB-19'
+            AND finyear=2019
+        GROUP BY SECTIONNM;
+
+
+
+
+
+
+
+
+OUTPUT:
+
+--------------------------------- --------------- EMPLOY IN-OUT ATTENDENCE REPORT ---------------------- -------------------------------------------
+
++-------------+---------------+---------------+---------------+---------------+----------------+----------------+----------------+-----------------+
+|-SECTION NAME|TIME_08_TO_09IN|TIME_09_TO_10IN|TIME_10_TO_11IN|TIME_11_TO_12IN|TIME_03_TO_04OUT|TIME_04_TO_05OUT|TIME_05_TO_06OUT|TIME_06_TO_07OUT-|
++-------------+---------------+---------------+---------------+---------------+----------------+----------------+----------------+-----------------+
++-------------+---------------+---------------+---------------+---------------+----------------+----------------+----------------+-----------------+
