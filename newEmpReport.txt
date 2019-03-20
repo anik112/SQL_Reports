@@ -1,0 +1,24 @@
+# code
+
+
+
+select emp.EMPNAME, emp.CARDNO, emp.DESIGNATION, to_char(emp.JOINING_DATE,'DD/MM/RRRR')JOINING_DATE, to_char(emp.BIRTH_DATE,'DD/MM/RRRR')BIRTH_DATE,
+       emp.GENDER, emp.SALARY_GRADE, emp.DEPARTMENTNM, emp.SECTIONNM, emp.LINENO, emp.WORKERTYPE,
+	   emp.FATHER_NAME, emp.MOTHER_NAME, emp.HOUSBANDNAME SPOUSE_NAME,edu.LEVEL_DEGREE,emp.RELIGION, emp.BLOODGROUP, emp.SHIFT,
+	   other.OWN_CELLNO, other.NID,emp.PRESENT_ADDRESS, emp.PERMANENTADDRESS,emp.PERMANENT_ADD_BAN, emp.AC_NO,emp.GROSSSALARY 
+from   tb_personal_info emp, TB_PERSONAL_INFO_OTHER other, TB_PERSONAL_EDUCATIONAL edu
+where  emp.COMPANY   = 'Thermax Melange Spinning Mills Ltd. U-1'
+and    other.COMPANY = emp.COMPANY
+and    edu.COMPANY   = emp.COMPANY
+and    other.CARDNO  = emp.CARDNO
+and    edu.CARDNO    = emp.CARDNO
+and    emp.ACTIVE    = 0
+order by emp.DEPARTMENTNM, emp.SECTIONNM, emp.LINENO,emp.CARDNO asc
+
+
+
+
++---------------------------------- Employ Report ----------------------+
++---------+--------+-------------+--------------+------------+--------+--------------+--------------+-----------+--------+------------+-------------+-------------+-------------+--------------+----------+------------+-------+------------+-----+-----------------+------------------+-------------+
+| EMPNAME | CARDNO | DESIGNATION | JOINING_DATE | BIRTH_DATE | GENDER | SALARY_GRADE | DEPARTMENTNM | SECTIONNM | LINENO | WORKERTYPE | FATHER_NAME | MOTHER_NAME | SPOUSE_NAME | LEVEL_DEGREE | RELIGION | BLOODGROUP | SHIFT | OWN_CELLNO | NID | PRESENT_ADDRESS | PERMANENTADDRESS | GROSSSALARY |
++---------+--------+-------------+--------------+------------+--------+--------------+--------------+-----------+--------+------------+-------------+-------------+-------------+--------------+----------+------------+-------+------------+-----+-----------------+------------------+-------------+
